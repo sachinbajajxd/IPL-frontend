@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import LoaderComponent from './Loader';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -62,12 +63,6 @@ const EconomicalBowler = () => {
       const labels = bowlerData.map((item) => `${item.team}  - ${item.bestBowler}` );
       
       console.log(typeof(labels));
-    //   const datasets = bowlerData.map((item) => ({
-    //     // console.log((item))
-    //     label: `${item.bestBowler} - Economy`,
-    //     data: item.economy,
-    //     backgroundColor: getRandomColor(),
-    // }));
     const temp = bowlerData.map((item) => item.economy);
 
     // // console.log(datasets);
@@ -101,9 +96,8 @@ const EconomicalBowler = () => {
 
       {/* Display loading message while data is loading */}
       {loading && fetchData ? (
-        <p>Loading...</p>
+        <LoaderComponent />
       ) : (
-        // <h1>Foo</h1>
         <Bar options={options} data={dataa} />
       )}
     </div>

@@ -8,10 +8,10 @@ import MatchRecords from './components/MatchRecords';
 function App() {
   return (
     <div className="App">
-      {/* <Home /> */}
+      <Home />
       {/* <EconomicalBowler />  */}
       {/* <ExtraRuns /> */}
-      <MatchRecords />
+      {/* <MatchRecords /> */}
     </div>
   );
 }

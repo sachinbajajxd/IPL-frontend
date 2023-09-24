@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import LoaderComponent from './Loader';
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +35,7 @@ export const options = {
 };
 
 const MatchRecords = () => {
-  const [year, setYear] = useState(0);
+  const [year, setYear] = useState(2010);
   const [matchData, setMatchData] = useState([]);
   const [dataa, setData] = useState({ labels: [], datasets: [] });
   const [loading, setLoading] = useState(true); // Add loading state
@@ -84,11 +85,13 @@ const MatchRecords = () => {
                 label: "Won",
                 data: won,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
             },
             {
                 label: "Played",
                 data: played,
                 backgroundColor: 'rgba(25, 90, 32, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
             },
         ],
       });
@@ -112,7 +115,8 @@ const MatchRecords = () => {
 
       {/* Display loading message while data is loading */}
       {loading && fetchData ? (
-        <p>Loading...</p>
+        <LoaderComponent />
+        // <h1>Loading ...</h1>
       ) : (
         // <h1>Foo</h1>
         <Bar options={options} data={dataa} />

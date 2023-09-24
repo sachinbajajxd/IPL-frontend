@@ -40,7 +40,12 @@ export const options = {
 
 const MatchesWonByEachTeam = () => {
   const [matchesData, setMatchesData] = useState([]);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ labels: [], datasets: [] });
+
+  const getRandomColor = () => {
+    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+    return "#"+randomColor;
+  };
 
   useEffect(() => {
     axios.get('http://localhost:3000/matches-won-by-each-team')
@@ -56,57 +61,56 @@ const MatchesWonByEachTeam = () => {
   useEffect(() => {
     if (matchesData && matchesData.length > 0) {
       const labels = matchesData.map((item) => item.year);
-      const matchResults = matchesData.map((item) => item.matchResults);
       // console.log(labels);
-      // console.log(matchResults);
-      // Perform any other data processing here
+      const matchResults = matchesData.map((item) => item.matchResults);
 
-      const getRandomColor = () => {
-        var randomColor = Math.floor(Math.random()*16777215).toString(16);
-        return "#"+randomColor;
-      };
+        // Initialize an object to store results for each team
+      const teamResults = {};
 
-      const datasets = matchResults.map((item, idx) => (
+      // Loop through the result array
+      matchesData.forEach((yearResult) => {
+        const year = yearResult.year;
+        yearResult.matchResults.forEach((match) => {
+          const team = match.team;
+          const matchesWon = match.matchesWon;
 
-        // label: item[0].team,
-        // data: item[.matchesWon,
-        // backgroundColor: getRandomColor(),
-        console.log(item)
-     ))
-      // console.log("FOO", matchResults);
+          // Initialize the team's array if it doesn't exist
+          if (!teamResults[team]) {
+            teamResults[team] = Array(matchesData.length).fill(0);
+          }
 
-      // const datasets = matchesData.map((item) => console.log(item.matchResults));
-      // console.log(datasets);
-      // setData({
-      //   labels,
-      //   datasets: datasets,
-      // });
+          // Set the number of matches won for the corresponding year
+          teamResults[team][year - 2008] = matchesWon;
+        });
+      });
+
+      // Convert the teamResults object to an array of objects with team and data properties
+      const teamResultsArray = Object.keys(teamResults).map((team) => ({
+        team: team,
+        data: teamResults[team],
+      }));
+
+      console.log(teamResultsArray);
+
+
+      const datasets = teamResultsArray.map((teamResult, idx) => ({
+        label: teamResult.team,
+        data: teamResult.data,
+        backgroundColor: getRandomColor(),
+      }))
+    
+      setData({
+        labels,
+        datasets,
+      });
       // console.log(data);
     }
   }, [matchesData]);
-//   const labels = matchData.map((item) => console.log(item));
-//   const matchResults = matchesData.matchResults;
-
-
-  
 
   return (
     <div>
       <h2>Matches Won By Each Team</h2>
       {data && data.labels && data.datasets && <Bar options={options} data={data}/>}
-      {console.log(data)}
-      {/* {matchesData && matchesData.map((yearData, index) => (
-        <div key={index}>
-          <h2>Year {yearData.year}</h2>
-          <ul>
-            {yearData.matchResults.map((matchResult, matchIndex) => (
-              <li key={matchIndex}>
-                {matchResult.team}: {matchResult.matchesWon} matches won
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))} */}
     </div>
   );
 }
