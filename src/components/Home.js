@@ -4,8 +4,8 @@ import MatchesWonByEachTeam from "./MatchesWonByEachTeam";
 const Home = () => {
     return (
         <div>
-            <MatchesPerYear />
-            {/* <MatchesWonByEachTeam /> */}
+            {/* <MatchesPerYear /> */}
+            <MatchesWonByEachTeam />
         </div>
     )
 }
