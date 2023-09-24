@@ -48,7 +48,7 @@ const EconomicalBowler = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/economical-bowler/${year}`)
+    axios.get(`https://iplstats-ot1c.onrender.com/economical-bowler/${year}`)
     .then((response) => {
       if (response.data.message === 'No match found') {
         setBowlerData([]);

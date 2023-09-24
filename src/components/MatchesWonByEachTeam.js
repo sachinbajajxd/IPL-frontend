@@ -48,7 +48,7 @@ const MatchesWonByEachTeam = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/matches-won-by-each-team')
+    axios.get('https://iplstats-ot1c.onrender.com/matches-won-by-each-team')
       .then((response) => {
         setMatchesData(response.data.result);
       })

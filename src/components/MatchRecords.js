@@ -53,7 +53,7 @@ const MatchRecords = () => {
     //     setYear(2000);
     //     return;
     // }
-    axios.get(`http://localhost:3000/match-stats/${year}`)
+    axios.get(`https://iplstats-ot1c.onrender.com/match-stats/${year}`)
     .then((response) => {
       if (response.data.message === 'No match found') {
         setMatchData([]);

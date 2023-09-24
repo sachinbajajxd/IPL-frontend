@@ -38,7 +38,7 @@ const MatchesPerYear = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/matches-per-year')
+    axios.get('https://iplstats-ot1c.onrender.com/matches-per-year')
       .then((response) => {
         setMatchesData(response.data);
       })

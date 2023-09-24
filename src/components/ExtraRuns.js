@@ -48,7 +48,7 @@ const ExtraRuns = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/get-extras/${year}`)
+    axios.get(`https://iplstats-ot1c.onrender.com/get-extras/${year}`)
     .then((response) => {
       if (response.data.message === 'No match found') {
         setRunsData([]);
