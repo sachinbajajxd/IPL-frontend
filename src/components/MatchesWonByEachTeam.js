@@ -23,7 +23,7 @@ ChartJS.register(
 export const options = {
     plugins: {
       title: {
-        display: true,
+        display: false,
         text: "Chart.js Bar Chart - Stacked"
       }
     },
@@ -61,8 +61,7 @@ const MatchesWonByEachTeam = () => {
   useEffect(() => {
     if (matchesData && matchesData.length > 0) {
       const labels = matchesData.map((item) => item.year);
-      // console.log(labels);
-      const matchResults = matchesData.map((item) => item.matchResults);
+  
 
         // Initialize an object to store results for each team
       const teamResults = {};
@@ -97,6 +96,7 @@ const MatchesWonByEachTeam = () => {
         label: teamResult.team,
         data: teamResult.data,
         backgroundColor: getRandomColor(),
+        barThickness: 30,
       }))
     
       setData({
@@ -108,8 +108,8 @@ const MatchesWonByEachTeam = () => {
   }, [matchesData]);
 
   return (
-    <div>
-      <h2>Matches Won By Each Team</h2>
+    <div className="w-1/2 h-3/4 m-auto mt-5">
+      <h2 className='font-bold'>Matches Won By Each Team</h2>
       {data && data.labels && data.datasets && <Bar options={options} data={data}/>}
     </div>
   );

@@ -26,15 +26,16 @@ export const options = {
     legend: {
       position: 'top',
     },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
   },
 };
 
 const MatchesPerYear = () => {
   const [matchesData, setMatchesData] = useState([]);
+
+  const getRandomColor = () => {
+    var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    return "#" + randomColor;
+  };
 
   useEffect(() => {
     axios.get('http://localhost:3000/matches-per-year')
@@ -53,17 +54,18 @@ const MatchesPerYear = () => {
     labels,
     datasets: [
       {
-        label: 'Dataset 1',
+        label: 'Number of matches',
         data: numMatches,
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        backgroundColor: getRandomColor(),
+        barThickness: 30,
       },
   
     ],
   };
 
   return (
-    <div>
-      <h2>Matches Played Per Year</h2>
+    <div className="w-1/2 h-2/5 m-auto mt-5">
+      <h1 className='font-bold'>Matches Played Per Year</h1>
       <Bar options={options} data={data}/>
     </div>
   );
